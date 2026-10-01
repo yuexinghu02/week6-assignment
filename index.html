@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coast Guard Search and Rescue Statistics, FY2020–2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#F2F5F7;--panel:#FFFFFF;--ink:#102A43;--ink2:#4A6076;--ink3:#7D8FA0;--rule:#D6DFE6;--blue:#1F4E8C;--blue2:#9DB6D6;--blue3:#E3EBF4;--red:#C8342B;--teal:#1E7F74;--amber:#B7791F;--grey:#B9C4CE;
+--display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1822;--panel:#132230;--ink:#E6EDF3;--ink2:#A9BBCB;--ink3:#7A8FA2;--rule:#243746;--blue:#6E9FDC;--blue2:#3A5F8C;--blue3:#1B3148;--red:#E2584E;--teal:#4CB3A6;--amber:#E0A84A;--grey:#3C4F60}}
+:root[data-theme="dark"]{--bg:#0D1822;--panel:#132230;--ink:#E6EDF3;--ink2:#A9BBCB;--ink3:#7A8FA2;--rule:#243746;--blue:#6E9FDC;--blue2:#3A5F8C;--blue3:#1B3148;--red:#E2584E;--teal:#4CB3A6;--amber:#E0A84A;--grey:#3C4F60}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--body);font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 48px}
+header{position:relative;overflow:hidden;padding:28px 0 22px;border-bottom:1px solid var(--rule)}
+.stripe{position:absolute;top:-40px;right:60px;width:160px;height:300px;transform:skewX(-28deg);pointer-events:none}
+.stripe i{position:absolute;top:0;bottom:0}
+.stripe i:nth-child(1){left:0;width:64px;background:var(--red)}
+.stripe i:nth-child(2){left:78px;width:18px;background:var(--blue)}
+.mark{display:block;margin:0 0 6px -8px;position:relative}
+.markT{fill:var(--ink);font:600 17px var(--display);letter-spacing:1.5px}
+h1{font:600 clamp(34px,5vw,54px)/1 var(--display);letter-spacing:.2px;margin:0 0 8px;max-width:20ch;position:relative}
+.sub{color:var(--ink2);max-width:62ch;margin:0;position:relative}
+h2{font:600 26px/1.1 var(--display);margin:0 0 4px}
+.hint{color:var(--ink3);font-size:14px;margin:0 0 14px}
+section{margin-top:34px}
+.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:18px 0 0;position:relative}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:none;color:var(--ink2);font:600 14px var(--body);padding:7px 12px;cursor:pointer;border-right:1px solid var(--rule)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+button:focus-visible,[tabindex]:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.crumbs{font-size:14px;color:var(--ink2);margin-top:8px}
+.filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;background:var(--bg);padding:12px 0 10px;border-bottom:1px solid var(--rule)}
+.frow{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end}
+.f{display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--ink2);flex:1 1 170px;max-width:260px}
+.f select{font:15px var(--body);color:var(--ink);background:var(--panel);border:1px solid var(--ink3);border-radius:6px;padding:7px 8px;width:100%;cursor:pointer}
+.reset{font:600 14px var(--body);color:#fff;background:var(--blue);border:0;border-radius:6px;padding:9px 14px;cursor:pointer}
+.reset:disabled{background:var(--grey);color:var(--ink2);cursor:default}
+@media (max-width:640px){.f{flex:1 1 45%;max-width:none}.reset{flex:1 1 100%}.filters{position:static}}
+.crumbs button{background:none;border:0;padding:0;font:inherit;color:var(--blue);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.crumbs b{color:var(--ink);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-top:18px}
+.kpi{background:var(--panel);padding:14px 16px}
+.kpi .l{font-size:13px;color:var(--ink2)}
+.kpi .v{font:600 34px/1.1 var(--display);margin-top:2px}
+.kpi .d{font-size:13px;color:var(--ink3)}
+.up{color:var(--red)}.down{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px}
+@media (max-width:860px){.grid2{grid-template-columns:minmax(0,1fr)}.stripe{right:-60px}}@media (max-width:640px){.stripe{display:none}}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px}
+.panel h3{font:600 19px/1.2 var(--display);margin:0 0 10px}
+.kids{display:flex;flex-direction:column;gap:4px}
+.kid{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:4px 10px;align-items:center;padding:6px 8px;border-radius:5px;cursor:pointer;border:0;background:none;text-align:left;color:var(--ink);font:inherit;width:100%}
+.kid:hover{background:var(--blue3)}
+.kid .n{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kid .n small{color:var(--ink3);font-size:13px;margin-left:6px}
+.kid .num{text-align:right;font-size:14px;color:var(--ink2)}
+.kid .track{grid-column:1/-1;height:8px;background:var(--blue3);border-radius:0 3px 3px 0}
+.kid .track span{display:block;height:100%;background:var(--blue);border-radius:0 3px 3px 0}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+svg text{fill:var(--ink2);font:12px var(--body)}
+svg .val{fill:var(--ink);font-weight:600}
+.ob{display:grid;grid-template-columns:150px minmax(0,1fr) 84px;gap:8px;align-items:center;font-size:14px;margin:5px 0}
+.ob .t{height:12px;background:var(--blue3);border-radius:0 3px 3px 0}
+.ob .t span{display:block;height:100%;border-radius:0 3px 3px 0}
+.ob .n{text-align:right}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:820px}
+th{font-weight:600;color:var(--ink2);text-align:right;padding:8px;border-bottom:1px solid var(--ink3);white-space:nowrap;cursor:pointer;user-select:none}
+th:nth-child(2),th:nth-child(3),td:nth-child(2),td:nth-child(3){text-align:left}
+th[aria-sort="descending"]::after{content:" \25BE"}th[aria-sort="ascending"]::after{content:" \25B4"}
+td{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+tbody tr{cursor:pointer}tbody tr:hover{background:var(--blue3)}
+tr.sel{background:var(--blue3)}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:4px 0 16px}
+.qs button{text-align:left;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;cursor:pointer;color:var(--ink);font:600 15px/1.3 var(--body)}
+.qs button small{display:block;font-weight:400;color:var(--ink2);font-size:13px;margin-top:3px}
+.qs button[aria-pressed="true"]{border:2px solid var(--blue);padding:9px 11px;background:var(--blue3)}
+.qgrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:20px}
+@media (max-width:860px){.qgrid{grid-template-columns:minmax(0,1fr)}}
+.why{font-size:14px;color:var(--ink2);margin:0 0 14px;line-height:1.45}
+.qb{display:grid;grid-template-columns:26px minmax(0,1fr);gap:2px 8px;padding:5px 6px;border-radius:5px;cursor:pointer;border:0;background:none;width:100%;text-align:left;font:inherit;color:var(--ink)}
+.qb:hover,.qb.sel{background:var(--blue3)}
+.qb .rk{color:var(--ink3);font-size:13px;text-align:right;padding-top:1px}
+.qb .top{display:flex;justify-content:space-between;gap:8px;font-size:15px}
+.qb .top span:last-child{color:var(--ink2);font-size:14px;white-space:nowrap}
+.qb .tr{grid-column:2;height:8px;background:var(--blue3);border-radius:0 3px 3px 0}
+.qb .tr i{display:block;height:100%;border-radius:0 3px 3px 0}
+.more{margin-top:10px;background:none;border:1px solid var(--rule);border-radius:6px;padding:6px 12px;color:var(--blue);font:600 14px var(--body);cursor:pointer}
+.rp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;align-items:center;padding:5px 6px;border-radius:5px;cursor:pointer;border:0;background:none;width:100%;text-align:left;font:inherit;color:var(--ink);font-size:15px}
+.rp:hover{background:var(--blue3)}
+.dots{display:flex;gap:4px}
+.dots i{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--blue2)}
+.dots i.on{background:var(--blue);border-color:var(--blue)}
+.rp small{grid-column:1/-1;color:var(--ink3);font-size:12px;margin-top:-4px}
+details.all{margin-top:18px}
+details.all summary{cursor:pointer;color:var(--blue);font-weight:600}
+.heat{display:grid;gap:2px;font-size:13px;min-width:720px}
+.heat .rl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px;cursor:pointer;color:var(--ink)}
+.heat .rl:hover{text-decoration:underline}
+.heat .c{height:22px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.heat .h{color:var(--ink3);text-align:center}
+.legend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);margin-top:10px}
+.legend .ramp{width:160px;height:10px;border-radius:2px;background:linear-gradient(90deg,var(--blue3),var(--blue))}
+.notes{font-size:14px;color:var(--ink2);max-width:78ch}
+.notes p{margin:0 0 10px}
+a{color:var(--blue)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;padding:6px 9px;border-radius:5px;opacity:0;transition:opacity .1s;z-index:5;max-width:240px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="wrap">
+<header>
+  <div class="stripe" aria-hidden="true"><i></i><i></i></div>
+  <svg class="mark" viewBox="0 0 160 150" width="150" height="141" role="img" aria-label="SAR Data Analysis life ring mark">
+    <defs><path id="arcTop" d="M 14,92 A 66,66 0 0 1 146,92"/></defs>
+    <text class="markT"><textPath href="#arcTop" startOffset="50%" text-anchor="middle">SAR Data Analysis</textPath></text>
+    <circle cx="80" cy="92" r="36" fill="none" stroke="#FFFFFF" stroke-width="18"/>
+    <circle cx="80" cy="92" r="36" fill="none" stroke="var(--red)" stroke-width="18" stroke-dasharray="28.27 28.27" stroke-dashoffset="14.14"/>
+    <circle cx="80" cy="92" r="45" fill="none" stroke="var(--ink)" stroke-width="1.75"/>
+    <circle cx="80" cy="92" r="27" fill="none" stroke="var(--ink)" stroke-width="1.75"/>
+    <circle cx="80" cy="92" r="50" fill="none" stroke="var(--ink2)" stroke-width="2" stroke-dasharray="20 11.4" stroke-linecap="round" transform="rotate(-10 80 92)"/>
+  </svg>
+  <h1 id="pageTitle">Coast Guard Search and Rescue Statistics, FY2020–2024</h1>
+  <p class="sub">Cases and outcomes by area, district and Captain of the Port zone. Use the filters to focus on one region, district or zone, or click any bar to drill in.</p>
+</header>
+<div class="filters" role="region" aria-label="Filters">
+  <div class="frow">
+    <label class="f"><span>Region</span><select id="fArea"></select></label>
+    <label class="f"><span>District</span><select id="fDist"></select></label>
+    <label class="f"><span>COTP zone</span><select id="fZone"></select></label>
+    <label class="f"><span>Fiscal year</span><select id="fYear"></select></label>
+    <button class="reset" id="fReset" type="button">Show nationwide</button>
+  </div>
+  <div class="crumbs" id="crumbs" aria-live="polite"></div>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<section class="grid2">
+  <div class="panel">
+    <h3 id="kidsTitle">Cases by area</h3>
+    <div class="kids" id="kids"></div>
+  </div>
+  <div class="panel">
+    <h3 id="detTitle">Detail</h3>
+    <div class="charts">
+      <div><div class="hint" style="margin:0 0 4px">Cases per fiscal year</div><div id="chYear"></div></div>
+      <div><div class="hint" style="margin:0 0 4px" id="chMonHint">Average cases per month</div><div id="chMon"></div></div>
+    </div>
+    <div class="hint" style="margin:14px 0 4px">People involved, by outcome</div>
+    <div id="outc"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Which zones need the most help?</h2>
+  <p class="hint" style="max-width:78ch">Pick a question below. Each one ranks the zones on a single, plain measure of demand. Click any zone to see its details above.</p>
+  <div class="qs" id="qs" role="group" aria-label="Questions"></div>
+  <div class="qgrid">
+    <div class="panel">
+      <h3 id="qTitle"></h3>
+      <p class="why" id="qWhy"></p>
+      <div id="qBars"></div>
+      <button class="more" id="qMore"></button>
+      <p class="foot" id="qFoot"></p>
+    </div>
+    <div class="panel">
+      <h3>Zones that keep coming up</h3>
+      <p class="why">How many of the five questions each zone ranks in the top 10 for, out of all <span class="nz">35</span> zones. A zone near the top on several questions is the strongest case for more resources.</p>
+      <div id="repeat"></div>
+    </div>
+  </div>
+  <details class="all">
+    <summary>See all the numbers for every zone</summary>
+    <div class="scroll" style="margin-top:12px"><table id="board"><thead><tr>
+      <th data-k="z">COTP zone</th><th data-k="d">District</th><th data-k="vol">Cases a year</th><th data-k="lives">Lives on the line a year</th><th data-k="surge">Busy season vs normal month</th><th data-k="trend">Change per year</th><th data-k="save">Share saved</th><th data-k="top">Top 10 in</th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="foot">* Based on fewer than 50 people a year. DHS rounds every figure to the nearest 10, so this share can be far off.</p>
+  </details>
+</section>
+
+<section>
+  <h2>Seasonal load by zone</h2>
+  <p class="hint">Average cases per month, October through September. Useful for timing surge crews and seasonal stations.</p>
+  <div class="seg" id="heatMode" role="group" aria-label="Heatmap scale" style="margin-bottom:12px"></div>
+  <div class="scroll"><div class="heat" id="heat"></div></div>
+  <div class="legend"><span id="lgLo">0</span><span class="ramp"></span><span id="lgHi"></span></div>
+</section>
+
+<section class="notes">
+  <h2>About the data</h2>
+  <p>Source: DHS Office of Homeland Security Statistics, <a href="https://ohss.dhs.gov/khsm/uscg-search-and-rescue-responses">Key Homeland Security Metric: USCG Search and Rescue Responses</a> (<span id="srcFile">workbook: Search and Rescue Responses KHSM 12.17.24.xlsx</span>), built from the Coast Guard's MISLE system. DHS rounds every row to the nearest 10, so small zones and totals built from many rows carry rounding error; national figures here are summed from zone rows and can differ slightly from DHS's published totals. Zone-level monthly figures come from the monthly sheet, annual figures from the annual sheet.</p>
+  <p>Save rate is lives saved divided by lives saved plus lives lost after the Coast Guard was notified or arrived, plus people unaccounted for. Lives lost before notification are left out because the Coast Guard could not affect them. Change per year is the least-squares slope across <span class="fyr">FY2020–2024</span> as a percent of the zone's average. Lives on the line counts everyone saved, lost (before or after notification) or unaccounted for. Busy season vs normal month is the busiest month's average divided by the zone's monthly average. "Top 10 in" counts how many of the five questions a zone ranks in the top 10 for among all <span class="nz">35</span> zones; for the change-per-year question only rising zones count, and for share saved only zones with at least 50 people a year are ranked.</p>
+  <p>The data has no unit-level staffing, asset or station detail, so this shows where demand is, not how well each zone is resourced against it.</p>
+</section>
+</div>
+
+<script>
+const DATA=/*DATA_START*/{"years":[2020,2021,2022,2023,2024],"zones":[{"z":"Boston","d":"District 1","a":"Atlantic","c":{"2020":520,"2021":480,"2022":450,"2023":410,"2024":390},"m":{"2020":[40,20,20,10,20,10,20,30,70,120,110,70],"2021":[30,20,20,20,10,20,30,50,70,110,60,50],"2022":[30,20,10,10,10,20,20,50,60,100,70,50],"2023":[30,20,20,10,10,10,20,40,50,80,60,60],"2024":[20,10,10,10,10,10,20,40,50,80,70,60]},"o":{"2020":{"lostBefore":10,"saved":90,"unacc":10,"propLost":603260,"propSaved":2124190},"2021":{"lostBefore":10,"saved":160,"unacc":10,"propLost":3434970,"propSaved":1469230,"propUnacc":1256220},"2022":{"lostBefore":10,"saved":110,"unacc":10,"propLost":3613500,"propSaved":2982710,"propUnacc":300},"2023":{"lostBefore":10,"saved":70,"propLost":490000,"propSaved":565800,"propUnacc":375000},"2024":{"lostBefore":10,"saved":100,"propLost":1047200,"propSaved":2380930,"propUnacc":22600}}},{"z":"Buffalo","d":"District 9","a":"Atlantic","c":{"2020":1150,"2021":970,"2022":1000,"2023":780,"2024":660},"m":{"2020":[50,40,20,20,10,20,20,110,210,300,240,130],"2021":[50,30,10,0,10,20,20,90,180,210,220,110],"2022":[70,20,20,10,20,20,30,110,170,260,180,80],"2023":[50,20,10,10,10,10,30,90,100,210,160,80],"2024":[40,20,20,10,10,10,30,70,110,160,110,60]},"o":{"2020":{"lostNotif":10,"lostBefore":20,"saved":390,"unacc":20,"propLost":337930,"propSaved":1837770,"propUnacc":39800},"2021":{"lostArrival":10,"lostNotif":10,"lostBefore":20,"saved":290,"unacc":20,"propLost":326170,"propSaved":1178110,"propUnacc":395780},"2022":{"lostBefore":20,"saved":280,"unacc":30,"propLost":354000,"propSaved":1644350,"propUnacc":286050},"2023":{"lostBefore":20,"saved":290,"unacc":10,"propLost":348660,"propSaved":3142710,"propUnacc":128000},"2024":{"lostBefore":20,"saved":370,"unacc":10,"propLost":234740,"propSaved":6399490,"propUnacc":23380}}},{"z":"Charleston","d":"District 7","a":"Atlantic","c":{"2020":320,"2021":290,"2022":310,"2023":340,"2024":340},"m":{"2020":[30,30,20,20,20,20,20,40,40,40,40,20],"2021":[20,20,20,10,20,20,20,40,50,30,30,20],"2022":[20,30,20,10,20,20,20,30,40,40,20,30],"2023":[20,30,20,10,20,20,30,40,30,50,40,30],"2024":[20,20,20,20,20,20,30,50,40,50,30,20]},"o":{"2020":{"lostNotif":10,"lostBefore":20,"saved":210,"unacc":10,"propLost":1272260,"propSaved":2786350,"propUnacc":31200},"2021":{"lostBefore":20,"saved":140,"unacc":10,"propLost":2605500,"propSaved":4282290,"propUnacc":316000},"2022":{"lostBefore":10,"saved":140,"propLost":1160550,"propSaved":2348550,"propUnacc":2000},"2023":{"lostBefore":10,"saved":170,"unacc":10,"propLost":1993750,"propSaved":9070500},"2024":{"saved":160,"unacc":10,"propLost":1380000,"propSaved":35968200,"propUnacc":641000}}},{"z":"Columbia River","d":"District 13","a":"Pacific","c":{"2020":1030,"2021":1010,"2022":920,"2023":750,"2024":680},"m":{"2020":[60,50,30,70,60,30,50,90,90,180,160,150],"2021":[90,50,50,60,60,60,70,100,140,100,150,90],"2022":[60,50,70,60,50,50,70,60,110,120,150,90],"2023":[60,40,30,50,50,50,60,80,70,120,100,70],"2024":[40,30,30,30,40,30,40,60,70,100,120,80]},"o":{"2020":{"lostArrival":10,"lostNotif":10,"lostBefore":10,"saved":250,"unacc":20,"propLost":985200,"propSaved":8784770,"propUnacc":58350},"2021":{"lostNotif":10,"lostBefore":10,"saved":160,"unacc":10,"propLost":1158740,"propSaved":7651330,"propUnacc":75300},"2022":{"lostNotif":10,"lostBefore":10,"saved":120,"unacc":20,"propLost":1664940,"propSaved":21600220,"propUnacc":87700},"2023":{"lostBefore":10,"saved":140,"unacc":20,"propLost":1084640,"propSaved":4725340,"propUnacc":200000},"2024":{"lostBefore":10,"saved":100,"unacc":20,"propLost":1037430,"propSaved":3198530,"propUnacc":29660}}},{"z":"Corpus Christi","d":"District 8","a":"Atlantic","c":{"2020":350,"2021":330,"2022":270,"2023":260,"2024":220},"m":{"2020":[30,20,20,20,20,20,20,50,50,40,40,30],"2021":[30,20,20,20,20,20,30,40,40,40,30,20],"2022":[30,30,10,10,10,20,30,30,20,30,30,20],"2023":[30,10,20,20,10,20,20,20,40,30,20,20],"2024":[20,10,10,10,20,30,10,30,30,30,30,10]},"o":{"2020":{"lostBefore":10,"saved":120,"unacc":10,"propLost":744900,"propSaved":1357510,"propUnacc":55000},"2021":{"lostNotif":10,"lostBefore":10,"saved":150,"propLost":17422410,"propSaved":2107520,"propUnacc":8000},"2022":{"lostBefore":10,"saved":110,"propLost":56060,"propSaved":2274830},"2023":{"lostBefore":10,"saved":110,"unacc":10,"propLost":410000,"propSaved":1008510},"2024":{"saved":60,"unacc":10,"propLost":1110120,"propSaved":3661590}}},{"z":"Delaware Bay","d":"District 5","a":"Atlantic","c":{"2020":430,"2021":460,"2022":540,"2023":500,"2024":500},"m":{"2020":[30,30,10,10,0,10,30,30,70,80,80,60],"2021":[30,20,10,10,10,10,20,50,70,100,50,70],"2022":[30,30,20,10,10,20,30,60,70,120,90,50],"2023":[30,20,20,10,10,10,20,40,60,130,80,70],"2024":[40,20,20,10,10,20,30,50,80,100,80,60]},"o":{"2020":{"lostNotif":10,"lostBefore":20,"saved":100,"unacc":10,"propLost":1488470,"propSaved":1761290,"propUnacc":2500},"2021":{"lostBefore":10,"saved":130,"propLost":1337470,"propSaved":1166400},"2022":{"lostNotif":10,"lostBefore":10,"saved":110,"unacc":10,"propLost":583810,"propSaved":1149750,"propUnacc":12000},"2023":{"lostBefore":20,"saved":150,"unacc":10,"propLost":1054480,"propSaved":2002170,"propUnacc":45000},"2024":{"lostArrival":10,"lostBefore":20,"saved":80,"unacc":10,"propLost":415000,"propSaved":1713940,"propUnacc":45000}}},{"z":"Detroit","d":"District 9","a":"Atlantic","c":{"2020":490,"2021":420,"2022":390,"2023":360,"2024":320},"m":{"2020":[30,20,10,10,0,20,20,40,90,100,100,50],"2021":[20,20,10,10,10,20,20,50,70,90,70,40],"2022":[20,20,10,10,10,10,10,50,60,80,70,30],"2023":[20,30,10,10,10,10,20,40,50,70,70,30],"2024":[20,10,10,10,10,20,20,50,50,50,50,30]},"o":{"2020":{"lostNotif":10,"lostBefore":10,"saved":110,"propLost":896930,"propSaved":2122360,"propUnacc":93950},"2021":{"lostNotif":10,"lostBefore":20,"saved":90,"unacc":10,"propLost":195000,"propSaved":822800,"propUnacc":14000},"2022":{"lostBefore":10,"saved":100,"unacc":10,"propLost":295250,"propSaved":1373020,"propUnacc":12000},"2023":{"lostBefore":20,"saved":120,"unacc":10,"propLost":344000,"propSaved":254620,"propUnacc":137500},"2024":{"lostBefore":20,"saved":120,"unacc":10,"propLost":1329640,"propSaved":254930}}},{"z":"Honolulu","d":"District 14","a":"Pacific","c":{"2020":420,"2021":400,"2022":400,"2023":440,"2024":380},"m":{"2020":[40,40,40,30,60,30,20,30,40,30,30,30],"2021":[30,30,40,30,30,20,30,30,40,40,40,40],"2022":[30,30,30,40,20,30,30,30,50,40,40,30],"2023":[30,30,40,40,30,40,50,40,50,40,30,30],"2024":[40,30,40,40,30,30,40,20,30,30,30,30]},"o":{"2020":{"lostNotif":10,"lostBefore":20,"saved":140,"unacc":20,"propLost":679760,"propSaved":1085700,"propUnacc":406150},"2021":{"lostNotif":10,"lostBefore":10,"saved":160,"unacc":20,"propLost":6348990,"propSaved":1678580,"propUnacc":26400},"2022":{"lostNotif":10,"lostBefore":10,"saved":170,"unacc":10,"propLost":3017250,"propSaved":7695750,"propUnacc":3000},"2023":{"lostNotif":10,"lostBefore":10,"saved":200,"unacc":20,"propLost":205491170,"propSaved":5178450,"propUnacc":14500},"2024":{"lostArrival":10,"lostNotif":10,"lostBefore":10,"saved":170,"unacc":10,"propLost":1069080,"propSaved":2080370,"propUnacc":616800}}},{"z":"Houston-Galveston","d":"District 8","a":"Atlantic","c":{"2020":380,"2021":350,"2022":350,"2023":400,"2024":390},"m":{"2020":[30,30,20,20,20,30,40,50,40,50,40,40],"2021":[50,30,20,20,10,20,30,30,40,40,30,30],"2022":[30,20,10,20,20,20,30,50,50,50,30,30],"2023":[30,20,20,20,20,30,40,50,50,50,50,30],"2024":[30,20,20,10,30,30,30,50,50,40,50,40]},"o":{"2020":{"lostNotif":10,"lostBefore":10,"saved":70,"unacc":30,"propLost":286980,"propSaved":983810,"propUnacc":82840},"2021":{"lostNotif":10,"lostBefore":10,"saved":80,"unacc":30,"propLost":533730,"propSaved":260640,"propUnacc":125290},"2022":{"lostNotif":10,"lostBefore":10,"saved":100,"unacc":10,"propLost":202174780,"propSaved":4314540,"propUnacc":58000},"2023":{"lostBefore":10,"saved":200,"unacc":10,"propLost":326000,"propSaved":1014120,"propUnacc":124500},"2024":{"saved":200,"unacc":10,"propLost":2355400,"propSaved":3155830,"propUnacc":25000}}},{"z":"Jacksonville","d":"District 7","a":"Atlantic","c":{"2020":280,"2021":270,"2022":220,"2023":240,"2024":270},"m":{"2020":[20,10,20,20,20,20,30,40,30,30,20,20],"2021":[20,20,20,10,10,30,30,40,30,40,20,20],"2022":[10,20,20,20,10,20,10,20,20,30,20,30],"2023":[10,20,10,10,10,20,20,20,20,40,30,20],"2024":[10,20,20,20,20,20,20,20,30,40,20,30]},"o":{"2020":{"lostBefore":10,"saved":110,"propLost":1306200,"propSaved":669770},"2021":{"lostBefore":10,"saved":70,"propLost":1055490,"propSaved":672480,"propUnacc":15000},"2022":{"saved":60,"propLost":155500,"propSaved":1905150,"propUnacc":22000},"2023":{"saved":60,"propLost":197700,"propSaved":391000},"2024":{"lostBefore":10,"saved":40,"propLost":279000,"propSaved":2239000}}},{"z":"Key West","d":"District 7","a":"Atlantic","c":{"2020":480,"2021":560,"2022":560,"2023":520,"2024":480},"m":{"2020":[30,40,40,40,40,40,30,30,50,60,40,40],"2021":[40,40,30,50,50,30,60,60,50,60,50,40],"2022":[50,60,40,40,30,60,50,50,40,50,50,40],"2023":[50,50,30,50,40,40,30,50,30,60,50,40],"2024":[30,30,50,40,40,50,50,40,40,40,40,40]},"o":{"2020":{"lostNotif":10,"saved":200,"propLost":1922920,"propSaved":3371770,"propUnacc":1000},"2021":{"lostNotif":10,"lostBefore":10,"saved":230,"unacc":30,"propLost":2176470,"propSaved":1883060,"propUnacc":174300},"2022":{"lostArrival":40,"lostBefore":10,"saved":370,"unacc":30,"propLost":566000,"propSaved":543650,"propUnacc":76310},"2023":{"lostNotif":10,"saved":330,"unacc":10,"propLost":980000,"propSaved":5625000,"propUnacc":800},"2024":{"lostBefore":10,"saved":250,"propLost":1180000,"propSaved":1520250,"propUnacc":500}}},{"z":"Lake Michigan","d":"District 9","a":"Atlantic","c":{"2020":720,"2021":750,"2022":630,"2023":600,"2024":700},"m":{"2020":[30,20,10,10,10,20,10,70,140,210,130,70],"2021":[30,10,10,10,10,10,20,80,150,170,170,90],"2022":[40,10,10,10,10,10,20,60,110,160,120,70],"2023":[40,10,10,10,10,10,20,50,90,160,130,70],"2024":[40,10,10,10,10,10,20,60,140,170,140,70]},"o":{"2020":{"lostBefore":30,"saved":130,"unacc":20,"propLost":150200,"propSaved":1610550},"2021":{"lostNotif":10,"lostBefore":20,"saved":260,"unacc":10,"propLost":582480,"propSaved":1172850},"2022":{"lostArrival":10,"lostBefore":20,"saved":120,"unacc":10,"propLost":35800,"propSaved":1339570,"propUnacc":33000},"2023":{"lostNotif":10,"lostBefore":20,"saved":330,"unacc":10,"propLost":203200,"propSaved":1866270},"2024":{"lostArrival":10,"lostNotif":10,"lostBefore":30,"saved":250,"unacc":10,"propLost":514300,"propSaved":4886110}}},{"z":"Long Island Sound","d":"District 1","a":"Atlantic","c":{"2020":560,"2021":500,"2022":380,"2023":340,"2024":330},"m":{"2020":[40,20,10,10,10,10,20,70,80,120,110,60],"2021":[50,40,10,10,0,20,30,50,90,90,70,50],"2022":[40,20,0,10,10,10,20,40,60,80,60,40],"2023":[30,10,10,10,10,0,10,30,40,80,50,50],"2024":[40,20,10,10,10,10,20,20,50,60,50,40]},"o":{"2020":{"lostArrival":10,"lostBefore":10,"saved":70,"propLost":704060,"propSaved":252550},"2021":{"lostBefore":10,"saved":110,"propLost":2859640,"propSaved":813550},"2022":{"lostBefore":10,"saved":80,"propLost":726750,"propSaved":1216630,"propUnacc":25500},"2023":{"lostBefore":10,"saved":60,"unacc":10,"propLost":463000,"propSaved":1096050,"propUnacc":500},"2024":{"lostBefore":10,"saved":160,"propLost":945500,"propSaved":3392280}}},{"z":"Los Angeles-Long Beach","d":"District 11","a":"Pacific","c":{"2020":240,"2021":200,"2022":200,"2023":320,"2024":570},"m":{"2020":[30,20,20,20,10,10,20,20,30,30,20,20],"2021":[20,20,10,10,10,10,10,20,20,30,20,20],"2022":[20,20,10,10,10,20,20,10,20,20,20,30],"2023":[20,10,20,20,10,10,30,40,30,60,40,30],"2024":[50,30,20,20,30,50,40,40,70,100,90,70]},"o":{"2020":{"lostBefore":10,"saved":60,"unacc":10,"propLost":313440,"propSaved":1238600},"2021":{"lostBefore":10,"saved":40,"propLost":170000,"propSaved":218280},"2022":{"lostBefore":10,"saved":90,"propLost":258830,"propSaved":2187330,"propUnacc":50000},"2023":{"lostBefore":10,"saved":150,"propLost":1688900,"propSaved":7585600},"2024":{"lostBefore":20,"saved":230,"propLost":2774500,"propSaved":3027460,"propUnacc":5000}}},{"z":"Lower Mississippi","d":"District 8","a":"Atlantic","c":{"2020":40,"2021":30,"2022":20,"2023":30,"2024":20},"m":{"2020":[0,0,10,0,0,0,0,10,0,10,10,0],"2021":[0,0,0,0,0,0,0,0,0,10,0,0],"2023":[0,0,0,0,0,0,0,0,0,0,10,10],"2024":[0,0,0,0,0,0,0,0,10,0,0,0]},"o":{"2020":{"saved":20,"propLost":111900,"propSaved":55860},"2021":{"saved":10,"propSaved":45460},"2022":{"saved":10,"propSaved":59000},"2024":{"propLost":35000,"propSaved":15000}}},{"z":"Maryland-NCR","d":"District 5","a":"Atlantic","c":{"2020":450,"2021":460,"2022":460,"2023":390,"2024":350},"m":{"2020":[20,20,20,20,20,10,20,50,70,100,60,40],"2021":[30,30,10,10,0,10,30,60,60,90,60,70],"2022":[40,30,10,10,20,20,20,50,70,80,60,50],"2023":[30,20,20,10,10,20,30,50,50,80,40,30],"2024":[30,10,10,10,10,20,20,30,60,70,50,40]},"o":{"2020":{"lostBefore":10,"saved":70,"unacc":20,"propLost":663480,"propSaved":359030,"propUnacc":710000},"2021":{"lostBefore":10,"saved":150,"unacc":10,"propLost":547130,"propSaved":3315980,"propUnacc":25200},"2022":{"lostNotif":10,"lostBefore":10,"saved":110,"unacc":40,"propLost":363700,"propSaved":856800,"propUnacc":103250},"2023":{"lostNotif":10,"lostBefore":10,"saved":120,"unacc":10,"propLost":667650,"propSaved":4054750,"propUnacc":19000},"2024":{"lostNotif":10,"lostBefore":10,"saved":90,"propLost":710000,"propSaved":481220,"propUnacc":106000}}},{"z":"Miami","d":"District 7","a":"Atlantic","c":{"2020":1210,"2021":1020,"2022":890,"2023":930,"2024":800},"m":{"2020":[70,120,100,100,100,90,100,120,100,120,90,110],"2021":[80,80,70,70,70,110,100,80,90,110,80,70],"2022":[70,70,70,60,50,90,70,80,90,90,70,70],"2023":[70,60,70,90,60,80,80,90,90,90,80,70],"2024":[60,70,50,60,70,70,60,90,80,80,70,50]},"o":{"2020":{"lostNotif":10,"lostBefore":20,"saved":210,"unacc":20,"propLost":5531040,"propSaved":3470440,"propUnacc":194290},"2021":{"lostNotif":10,"lostBefore":20,"saved":380,"unacc":60,"propLost":2846160,"propSaved":11261900,"propUnacc":12000},"2022":{"lostBefore":20,"saved":380,"unacc":20,"propLost":2746980,"propSaved":4504460,"propUnacc":23000},"2023":{"lostArrival":10,"lostNotif":10,"lostBefore":10,"saved":330,"unacc":10,"propLost":1975800,"propSaved":2260600,"propUnacc":25000},"2024":{"lostArrival":10,"lostBefore":10,"saved":270,"unacc":10,"propLost":670760,"propSaved":31935420,"propUnacc":80250}}},{"z":"Micronesia/Sector Guam","d":"District 14","a":"Pacific","c":{"2020":100,"2021":120,"2022":120,"2023":120,"2024":110},"m":{"2020":[10,10,10,10,10,10,10,10,10,10,10,10],"2021":[10,10,10,10,10,10,10,10,20,10,10,10],"2022":[10,10,10,10,10,20,10,10,10,20,10,10],"2023":[10,10,10,10,10,10,10,10,10,10,10,10],"2024":[10,0,10,10,10,20,10,10,10,10,10,10]},"o":{"2020":{"saved":30,"unacc":10,"propLost":1056140,"propSaved":160480,"propUnacc":10000},"2021":{"lostNotif":10,"saved":70,"propLost":8168020,"propSaved":243090,"propUnacc":13910},"2022":{"lostNotif":10,"saved":60,"unacc":10,"propLost":330700,"propSaved":215800,"propUnacc":250000},"2023":{"saved":50,"unacc":10,"propLost":100000,"propSaved":674750,"propUnacc":20000},"2024":{"lostArrival":10,"saved":90,"propLost":95280,"propSaved":2014460}}},{"z":"Mobile","d":"District 8","a":"Atlantic","c":{"2020":420,"2021":600,"2022":560,"2023":600,"2024":530},"m":{"2020":[20,10,20,10,10,20,20,60,70,60,70,70],"2021":[50,30,20,20,20,50,50,70,90,100,60,50],"2022":[40,20,20,30,20,40,50,80,80,80,50,50],"2023":[40,30,20,20,30,50,50,60,100,80,60,50],"2024":[40,30,30,10,10,40,40,40,90,90,70,40]},"o":{"2020":{"lostNotif":10,"lostBefore":10,"saved":310,"unacc":10,"propLost":2132830,"propSaved":2416970,"propUnacc":100},"2021":{"lostBefore":20,"saved":280,"unacc":10,"propLost":2039590,"propSaved":4474380,"propUnacc":127190},"2022":{"lostNotif":10,"lostBefore":10,"saved":310,"unacc":10,"propLost":2355170,"propSaved":6031020,"propUnacc":611530},"2023":{"lostNotif":10,"lostBefore":10,"saved":230,"unacc":10,"propLost":716210,"propSaved":2258360,"propUnacc":252500},"2024":{"lostNotif":10,"lostBefore":10,"saved":240,"propLost":1889380,"propSaved":4084180,"propUnacc":80000}}},{"z":"New Orleans","d":"District 8","a":"Atlantic","c":{"2020":660,"2021":570,"2022":520,"2023":540,"2024":470},"m":{"2020":[40,30,40,60,40,50,50,70,70,80,80,50],"2021":[60,40,40,40,30,40,80,60,60,70,40,30],"2022":[50,40,30,40,10,30,60,70,50,60,40,30],"2023":[50,30,30,30,40,40,50,60,60,60,40,50],"2024":[30,30,40,30,30,30,30,50,50,50,50,40]},"o":{"2020":{"lostNotif":10,"lostBefore":20,"saved":160,"unacc":20,"propLost":5520380,"propSaved":3086150,"propUnacc":218680},"2021":{"lostNotif":10,"lostBefore":10,"saved":150,"unacc":20,"propLost":8988550,"propSaved":1687010,"propUnacc":26470},"2022":{"lostNotif":10,"lostBefore":10,"saved":170,"unacc":30,"propLost":4932850,"propSaved":2048000,"propUnacc":414590},"2023":{"lostNotif":20,"saved":200,"unacc":20,"propLost":1454800,"propSaved":1044200,"propUnacc":126060},"2024":{"lostBefore":10,"saved":130,"unacc":20,"propLost":1950760,"propSaved":2222480,"propUnacc":290890}}},{"z":"New York","d":"District 1","a":"Atlantic","c":{"2020":580,"2021":520,"2022":450,"2023":430,"2024":410},"m":{"2020":[40,40,10,10,10,20,30,60,70,120,110,60],"2021":[40,40,20,10,10,20,20,60,90,70,80,60],"2022":[50,30,30,10,10,10,30,60,50,80,40,40],"2023":[20,30,20,20,10,10,30,60,50,90,50,40],"2024":[30,10,10,10,10,20,30,40,70,60,60,50]},"o":{"2020":{"lostArrival":10,"lostNotif":10,"lostBefore":20,"saved":130,"unacc":10,"propLost":161350,"propSaved":602010},"2021":{"lostArrival":10,"lostNotif":20,"lostBefore":20,"saved":130,"unacc":10,"propLost":246570,"propSaved":1240000},"2022":{"lostArrival":10,"lostNotif":10,"lostBefore":50,"saved":70,"unacc":20,"propLost":339130,"propSaved":497680},"2023":{"lostNotif":10,"lostBefore":40,"saved":1000,"unacc":10,"propLost":300665000,"propSaved":610600},"2024":{"lostArrival":10,"lostNotif":20,"lostBefore":50,"saved":110,"unacc":20,"propLost":532000,"propSaved":1956400}}},{"z":"North Carolina","d":"District 5","a":"Atlantic","c":{"2020":270,"2021":290,"2022":310,"2023":260,"2024":270},"m":{"2020":[30,10,10,10,10,20,20,30,30,40,30,30],"2021":[30,20,20,10,20,20,20,30,30,40,20,30],"2022":[30,20,20,10,10,10,30,50,40,50,20,20],"2023":[20,20,20,10,10,10,20,20,40,40,30,30],"2024":[20,20,10,10,10,10,30,40,30,30,30,30]},"o":{"2020":{"lostBefore":10,"saved":80,"unacc":10,"propLost":319320,"propSaved":513340,"propUnacc":302740},"2021":{"lostArrival":10,"lostBefore":10,"saved":70,"unacc":10,"propLost":605140,"propSaved":1117230,"propUnacc":333760},"2022":{"lostBefore":20,"saved":70,"unacc":10,"propLost":4562450,"propSaved":1132470,"propUnacc":1024500},"2023":{"saved":80,"propLost":917000,"propSaved":1192080,"propUnacc":69080},"2024":{"lostBefore":10,"saved":60,"unacc":10,"propLost":170000,"propSaved":1163660,"propUnacc":137000}}},{"z":"Northern New England","d":"District 1","a":"Atlantic","c":{"2020":350,"2021":260,"2022":270,"2023":250,"2024":320},"m":{"2020":[30,20,10,10,10,10,10,30,50,70,80,40],"2021":[20,10,10,10,10,10,10,30,50,40,40,30],"2022":[20,10,10,10,10,10,10,10,50,50,50,40],"2023":[10,10,10,10,0,10,10,20,30,70,60,30],"2024":[20,20,10,20,0,10,20,20,40,70,60,40]},"o":{"2020":{"lostNotif":10,"saved":40,"propLost":73440,"propSaved":10220620,"propUnacc":13980},"2021":{"saved":60,"propLost":3550000,"propSaved":2421220,"propUnacc":196930},"2022":{"saved":50,"propLost":416800,"propSaved":696390,"propUnacc":1500},"2023":{"lostBefore":10,"saved":20,"unacc":10,"propLost":488000,"propSaved":1263500,"propUnacc":1000},"2024":{"lostBefore":10,"saved":50,"propLost":869100,"propSaved":869900,"propUnacc":21500}}},{"z":"Ohio Valley","d":"District 8","a":"Atlantic","c":{"2020":130,"2021":130,"2022":110,"2023":90,"2024":90},"m":{"2020":[0,0,10,10,10,10,10,10,20,20,20,10],"2021":[10,10,10,10,0,10,10,10,20,20,20,10],"2022":[10,10,10,10,0,0,0,10,10,20,20,10],"2023":[0,0,10,0,10,10,10,10,20,10,10,10],"2024":[0,10,0,0,10,10,10,10,10,10,10,10]},"o":{"2020":{"lostArrival":10,"lostBefore":20,"saved":30,"unacc":10,"propLost":835220,"propSaved":78650},"2021":{"lostNotif":10,"lostBefore":10,"saved":20,"propLost":16780,"propSaved":401520},"2022":{"lostBefore":10,"saved":50,"unacc":10,"propLost":60000,"propSaved":270490},"2023":{"lostBefore":10,"saved":40,"propLost":75000,"propSaved":129800},"2024":{"lostNotif":10,"lostBefore":10,"saved":30,"propLost":7400,"propSaved":55000}}},{"z":"Puget Sound","d":"District 13","a":"Pacific","c":{"2020":560,"2021":640,"2022":790,"2023":680,"2024":540},"m":{"2020":[50,30,30,20,30,30,30,60,40,90,90,50],"2021":[50,30,30,40,30,30,40,70,80,80,80,70],"2022":[80,80,40,40,40,40,50,70,80,100,110,70],"2023":[60,40,50,30,20,40,30,60,80,130,90,70],"2024":[40,30,20,30,20,30,50,50,60,100,70,60]},"o":{"2020":{"lostNotif":10,"lostBefore":10,"saved":70,"unacc":10,"propLost":987660,"propSaved":1022620,"propUnacc":304010},"2021":{"lostBefore":10,"saved":100,"unacc":10,"propLost":2063410,"propSaved":266690,"propUnacc":1850},"2022":{"lostNotif":10,"lostBefore":10,"saved":180,"unacc":20,"propLost":1047530,"propSaved":2874060,"propUnacc":1200},"2023":{"lostBefore":10,"saved":130,"unacc":10,"propLost":410300,"propSaved":3638190,"propUnacc":2300},"2024":{"lostNotif":10,"lostBefore":10,"saved":160,"unacc":10,"propLost":1195700,"propSaved":3396260,"propUnacc":250000}}},{"z":"San Diego","d":"District 11","a":"Pacific","c":{"2020":210,"2021":160,"2022":280,"2023":230,"2024":180},"m":{"2020":[10,20,10,10,10,20,10,10,20,20,40,30],"2021":[20,10,10,10,10,10,10,10,20,20,20,10],"2022":[20,10,20,10,20,20,20,30,40,20,50,30],"2023":[20,20,20,10,20,20,20,20,20,20,20,20],"2024":[10,10,20,20,10,10,20,10,20,20,20,10]},"o":{"2020":{"lostBefore":20,"saved":170,"propLost":591010,"propSaved":1468090},"2021":{"lostNotif":10,"lostBefore":10,"saved":90,"propLost":198000,"propSaved":660710},"2022":{"lostBefore":10,"saved":130,"unacc":10,"propLost":595500,"propSaved":216500},"2023":{"lostBefore":10,"saved":60,"unacc":20,"propLost":1010500,"propSaved":3810500,"propUnacc":56000},"2024":{"lostArrival":10,"lostBefore":10,"saved":80,"propLost":1015000,"propSaved":1017310,"propUnacc":3000}}},{"z":"San Francisco","d":"District 11","a":"Pacific","c":{"2020":1510,"2021":1710,"2022":1520,"2023":1410,"2024":1380},"m":{"2020":[100,100,90,110,110,80,80,120,200,210,160,150],"2021":[150,140,120,120,110,140,150,170,180,170,150,120],"2022":[130,100,110,90,80,90,130,130,190,180,180,110],"2023":[110,90,90,110,90,90,110,110,140,180,170,120],"2024":[90,100,100,100,90,100,110,130,130,170,140,140]},"o":{"2020":{"lostNotif":10,"lostBefore":50,"saved":290,"unacc":50,"propLost":2251070,"propSaved":2851370,"propUnacc":351100},"2021":{"lostNotif":10,"lostBefore":40,"saved":340,"unacc":40,"propLost":49873610,"propSaved":1726890,"propUnacc":620340},"2022":{"lostNotif":10,"lostBefore":50,"saved":260,"unacc":10,"propLost":793050,"propSaved":2899750,"propUnacc":101950},"2023":{"lostArrival":10,"lostNotif":10,"lostBefore":30,"saved":350,"unacc":70,"propLost":990880,"propSaved":3394840,"propUnacc":504500},"2024":{"lostArrival":10,"lostNotif":10,"lostBefore":30,"saved":340,"unacc":60,"propLost":4152630,"propSaved":1484540,"propUnacc":60720}}},{"z":"San Juan","d":"District 7","a":"Atlantic","c":{"2020":310,"2021":390,"2022":320,"2023":340,"2024":330},"m":{"2020":[30,30,40,30,30,30,10,20,30,30,20,30],"2021":[30,30,40,40,30,30,40,40,30,30,30,30],"2022":[30,40,30,50,30,30,40,20,20,20,10,20],"2023":[30,30,40,30,30,40,20,30,20,30,30,30],"2024":[20,30,30,20,30,30,30,30,20,30,20,30]},"o":{"2020":{"lostArrival":10,"lostNotif":10,"lostBefore":10,"saved":50,"unacc":40,"propLost":1347070,"propSaved":197600,"propUnacc":34390},"2021":{"lostNotif":10,"lostBefore":10,"saved":180,"unacc":30,"propLost":1217200,"propSaved":514030,"propUnacc":33000},"2022":{"lostNotif":10,"lostBefore":30,"saved":210,"unacc":20,"propLost":696500,"propSaved":6075300,"propUnacc":20000},"2023":{"lostNotif":10,"lostBefore":10,"saved":120,"unacc":20,"propLost":911000,"propSaved":1052100,"propUnacc":22000},"2024":{"lostNotif":10,"lostBefore":10,"saved":190,"unacc":30,"propLost":510000,"propSaved":1734500}}},{"z":"Sault Ste. Marie","d":"District 9","a":"Atlantic","c":{"2020":310,"2021":270,"2022":260,"2023":270,"2024":280},"m":{"2020":[20,10,0,10,0,10,10,20,50,70,80,40],"2021":[20,10,0,0,0,0,10,20,50,70,60,30],"2022":[10,0,0,10,0,10,0,20,40,70,60,40],"2023":[10,10,0,0,10,10,10,10,40,80,50,30],"2024":[20,0,10,0,0,10,10,20,50,80,50,30]},"o":{"2020":{"saved":60,"propLost":85780,"propSaved":269280,"propUnacc":14100},"2021":{"saved":80,"propLost":43500,"propSaved":860000,"propUnacc":115360},"2022":{"lostBefore":10,"saved":60,"unacc":10,"propLost":143430,"propSaved":320780},"2023":{"saved":70,"unacc":10,"propLost":115000,"propSaved":510720},"2024":{"saved":130,"propLost":37350,"propSaved":24561050,"propUnacc":1500}}},{"z":"Southeast Alaska","d":"District 17","a":"Pacific","c":{"2020":450,"2021":450,"2022":500,"2023":570,"2024":490},"m":{"2020":[40,40,30,30,40,40,20,20,40,50,60,40],"2021":[30,30,30,30,40,30,30,20,50,60,50,50],"2022":[40,30,40,40,20,30,20,40,60,70,60,40],"2023":[50,40,40,40,40,30,20,40,70,60,90,60],"2024":[30,30,30,40,30,20,30,40,40,80,70,50]},"o":{"2020":{"saved":150,"propLost":684900,"propSaved":514300,"propUnacc":13390},"2021":{"lostNotif":10,"lostBefore":10,"saved":200,"unacc":10,"propLost":1321540,"propSaved":499620,"propUnacc":78330},"2022":{"lostNotif":10,"lostBefore":10,"saved":250,"unacc":10,"propLost":2636280,"propSaved":87330},"2023":{"lostNotif":10,"lostBefore":10,"saved":300,"unacc":10,"propLost":2009060,"propSaved":1100000},"2024":{"lostBefore":10,"saved":180,"unacc":10,"propLost":502500,"propSaved":13279150}}},{"z":"Southeastern New England","d":"District 1","a":"Atlantic","c":{"2020":430,"2021":360,"2022":330,"2023":290,"2024":290},"m":{"2020":[30,10,10,10,0,10,10,60,70,100,80,50],"2021":[30,20,10,10,10,10,20,40,50,70,60,50],"2022":[20,20,10,10,10,10,10,20,50,80,70,40],"2023":[20,10,10,10,10,10,10,30,30,80,50,30],"2024":[20,20,10,10,10,10,10,20,50,50,50,30]},"o":{"2020":{"lostBefore":10,"saved":90,"propLost":1474890,"propSaved":1214810,"propUnacc":1850},"2021":{"lostNotif":10,"lostBefore":10,"saved":100,"propLost":25653210,"propSaved":2979350,"propUnacc":64330},"2022":{"lostBefore":10,"saved":110,"propLost":916150,"propSaved":4269000,"propUnacc":10000},"2023":{"lostBefore":10,"saved":60,"propLost":34000,"propSaved":899700,"propUnacc":250},"2024":{"saved":50,"propLost":903000,"propSaved":968800}}},{"z":"St. Petersburg","d":"District 7","a":"Atlantic","c":{"2020":720,"2021":670,"2022":630,"2023":560,"2024":500},"m":{"2020":[50,50,30,30,60,50,60,90,90,70,70,70],"2021":[60,70,40,30,50,60,70,80,60,50,60,40],"2022":[60,40,50,40,30,60,50,70,70,70,40,50],"2023":[30,40,30,30,50,60,60,70,60,60,40,40],"2024":[40,30,30,30,30,50,50,50,60,40,40,50]},"o":{"2020":{"lostBefore":10,"saved":150,"unacc":10,"propLost":543950,"propSaved":1676520,"propUnacc":24000},"2021":{"lostBefore":10,"saved":200,"unacc":10,"propLost":419810,"propSaved":1186190},"2022":{"lostArrival":10,"lostNotif":10,"lostBefore":10,"saved":290,"propLost":271500,"propSaved":5792030,"propUnacc":100000},"2023":{"lostBefore":10,"saved":120,"unacc":10,"propLost":2337300,"propSaved":699200,"propUnacc":10400},"2024":{"lostNotif":10,"lostBefore":10,"saved":170,"unacc":30,"propLost":664600,"propSaved":4383400,"propUnacc":22000}}},{"z":"Upper Mississippi River","d":"District 8","a":"Atlantic","c":{"2020":90,"2021":80,"2022":60,"2023":40,"2024":30},"m":{"2020":[10,0,0,10,0,0,0,0,20,20,20,10],"2021":[10,0,0,0,10,0,10,10,10,10,10,10],"2022":[10,0,0,0,0,0,10,10,10,10,0,10],"2023":[0,0,0,0,0,0,0,10,10,0,10,10],"2024":[0,0,0,0,0,0,0,10,10,10,10,0]},"o":{"2020":{"saved":10,"unacc":10,"propLost":2000,"propSaved":341510},"2021":{"lostNotif":10,"saved":10,"propLost":33390,"propSaved":31390,"propUnacc":10500},"2022":{"saved":20,"propSaved":22700},"2023":{"saved":20,"unacc":10,"propSaved":66000,"propUnacc":25000},"2024":{"unacc":10,"propLost":800,"propSaved":395000}}},{"z":"Virginia","d":"District 5","a":"Atlantic","c":{"2020":570,"2021":540,"2022":590,"2023":540,"2024":570},"m":{"2020":[30,40,40,40,30,40,40,40,80,80,60,50],"2021":[50,40,30,30,20,20,50,50,60,80,70,50],"2022":[50,40,30,30,20,40,50,60,80,70,60,60],"2023":[40,40,40,30,20,30,40,50,60,80,60,50],"2024":[50,40,30,40,20,40,40,60,70,70,70,60]},"o":{"2020":{"lostBefore":10,"saved":110,"unacc":10,"propLost":1506730,"propSaved":422830,"propUnacc":172870},"2021":{"lostBefore":10,"saved":100,"propLost":1347570,"propSaved":1367670,"propUnacc":45000},"2022":{"lostNotif":10,"lostBefore":10,"saved":110,"unacc":10,"propLost":176146100,"propSaved":1743460,"propUnacc":5000},"2023":{"lostBefore":10,"saved":100,"unacc":10,"propLost":4558990,"propSaved":1936500,"propUnacc":2800000},"2024":{"lostBefore":10,"saved":150,"unacc":10,"propLost":1695400,"propSaved":4210200,"propUnacc":225300}}},{"z":"Western Alaska","d":"District 17","a":"Pacific","c":{"2020":90,"2021":110,"2022":120,"2023":120,"2024":110},"m":{"2020":[10,10,10,10,0,0,10,10,10,20,20,10],"2021":[10,0,0,0,0,0,0,20,20,20,20,10],"2022":[0,10,0,0,0,0,10,20,10,30,20,10],"2023":[10,0,10,0,0,0,10,10,20,20,20,10],"2024":[10,10,0,10,0,0,0,10,20,20,20,10]},"o":{"2020":{"saved":10,"unacc":10,"propLost":2545460,"propSaved":14330,"propUnacc":700000},"2021":{"saved":30,"propLost":914040,"propSaved":283480},"2022":{"saved":30,"propLost":507420,"propSaved":1110000,"propUnacc":267230},"2023":{"lostBefore":10,"saved":20,"propLost":1912590,"propSaved":289000},"2024":{"saved":20,"propLost":867340,"propSaved":19000}}}],"nat":{"c":{"2020":16830,"2021":16360,"2022":15720,"2023":14910,"2024":14280},"o":{"2020":{"lostArrival":70,"lostNotif":150,"lostBefore":390,"saved":4300,"unacc":400,"propLost":40118050,"propSaved":60943760,"propUnacc":3836250},"2021":{"lostArrival":70,"lostNotif":180,"lostBefore":360,"saved":4780,"unacc":400,"propLost":150300200,"propSaved":61960850,"propUnacc":4110420},"2022":{"lostArrival":100,"lostNotif":160,"lostBefore":430,"saved":4850,"unacc":360,"propLost":414524220,"propSaved":94299030,"propUnacc":3601600},"2023":{"lostArrival":70,"lostNotif":140,"lostBefore":330,"saved":5790,"unacc":360,"propLost":536424560,"propSaved":74411510,"propUnacc":4958890},"2024":{"lostArrival":80,"lostNotif":140,"lostBefore":330,"saved":4830,"unacc":350,"propLost":34145890,"propSaved":174125830,"propUnacc":2687100}}},"source":"Search and Rescue Responses KHSM 12.17.24.xlsx"}/*DATA_END*/;
+const YRS=DATA.years,Y0=YRS[0],Y1=YRS[YRS.length-1],yy=y=>String(y).slice(2),FRS="FY"+yy(Y0)+"–"+yy(Y1),NZ=DATA.zones.length;
+const MON=["Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+const OUT=[["saved","Lives saved","var(--teal)"],["unacc","Unaccounted for","var(--amber)"],["lostArrival","Lost after CG arrival","var(--red)"],["lostNotif","Lost after CG notified","var(--red)"],["lostBefore","Lost before CG notified","var(--grey)"]];
+const Z=DATA.zones;
+const S={fy:"all",path:[],sort:{k:"vol",dir:-1},heat:"abs",q:"vol",all:false};
+const fmt=n=>Math.round(n).toLocaleString("en-US");
+const money=n=>n>=1e9?"$"+(n/1e9).toFixed(1)+"B":n>=1e6?"$"+(n/1e6).toFixed(1)+"M":"$"+fmt(n/1e3)+"K";
+const pct=n=>(n>0?"+":"")+n.toFixed(1)+"%";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const yrs=()=>S.fy==="all"?YRS:[+S.fy];
+const dnum=d=>+d.replace(/\D/g,"");
+
+function scopeZones(p){return Z.filter(z=>(!p[0]||z.a===p[0])&&(!p[1]||z.d===p[1])&&(!p[2]||z.z===p[2]))}
+function agg(zs,ys){
+  const r={cases:0,byYear:{},mon:Array(12).fill(0),o:{}};
+  YRS.forEach(y=>r.byYear[y]=0);
+  zs.forEach(z=>{YRS.forEach(y=>r.byYear[y]+=z.c[y]||0);
+    ys.forEach(y=>{r.cases+=z.c[y]||0;(z.m[y]||[]).forEach((v,i)=>r.mon[i]+=v/ys.length);
+      const o=z.o[y]||{};for(const k in o)r.o[k]=(r.o[k]||0)+o[k]})});
+  return r}
+const lostAfter=o=>(o.lostNotif||0)+(o.lostArrival||0);
+const saveRate=o=>{const den=(o.saved||0)+lostAfter(o)+(o.unacc||0);return den?(o.saved||0)/den*100:null};
+
+function zoneMetrics(){
+  const ys=yrs();
+  const rows=Z.map(z=>{
+    const a=agg([z],ys),o=a.o,n=ys.length;
+    const ser=YRS.map(y=>z.c[y]||0),K=ser.length,mid=(K-1)/2,mean=ser.reduce((s,v)=>s+v,0)/K;
+    const slope=ser.reduce((s,v,i)=>s+(i-mid)*(v-mean),0)/(ser.reduce((s,v,i)=>s+(i-mid)**2,0)||1);
+    const mAvg=a.mon.reduce((s,v)=>s+v,0)/12;
+    const lives=((o.saved||0)+(o.unacc||0)+lostAfter(o)+(o.lostBefore||0))/n;
+    return {z:z.z,d:z.d,a:z.a,vol:a.cases/n,trend:mean?slope/mean*100:0,lives,save:saveRate(o),surge:mAvg?Math.max(...a.mon)/mAvg:1,peak:MON[a.mon.indexOf(Math.max(...a.mon))],tiny:a.cases/n<50,low:((o.saved||0)+lostAfter(o)+(o.unacc||0))/n<50}});
+  const rkBy=(key,asc,ok)=>[...rows].filter(ok||(()=>true)).sort((a,b)=>asc?a[key]-b[key]:b[key]-a[key]).forEach((r,i)=>{r.rk=r.rk||{};r.rk[key]=i+1});
+  rkBy("vol");rkBy("lives");rkBy("surge",false,r=>!r.tiny);rkBy("trend");rkBy("save",true,r=>r.save!=null&&!r.low);
+  rows.forEach(r=>{r.rk=r.rk||{};r.hits=QS.map(q=>q.hit(r));r.top=r.hits.filter(Boolean).length});
+  return rows}
+const QS=[
+ {k:"vol",tag:"most calls",q:"Which zones get the most calls for help?",s:"Cases a year",why:"Each case is one call for help that the Coast Guard responds to. More cases means more boats, crews and hours needed day to day.",val:r=>fmt(r.vol)+" cases a year",bar:r=>r.vol,asc:false,hit:r=>r.rk.vol<=10},
+ {k:"lives",tag:"most lives on the line",q:"Where are the most lives on the line?",s:"People in danger a year",why:"Counts people, not calls: one sinking boat can put many people at risk. Includes everyone saved, lost or never found.",val:r=>fmt(r.lives)+" people a year",bar:r=>r.lives,asc:false,hit:r=>r.rk.lives<=10},
+ {k:"surge",tag:"biggest busy season",q:"Which zones have the biggest busy season?",s:"Busiest month vs a normal month",why:"Some zones are far busier for a few months, usually summer. They may need extra seasonal crews more than extra year-round capacity.",val:r=>r.peak+" is "+r.surge.toFixed(1)+"× a normal month",bar:r=>r.surge-1,asc:false,hit:r=>!r.tiny&&r.rk.surge<=10},
+ {k:"trend",tag:"rising calls",q:"Where are calls for help increasing?",s:"Change per year, "+FRS,why:"Rising demand today points to where resources will be needed in the coming years. Always measured across every year in the data.",val:r=>(r.trend>0?"up ":"down ")+Math.abs(r.trend).toFixed(1)+"% a year",bar:r=>Math.max(r.trend,0),asc:false,hit:r=>r.rk.trend<=10&&r.trend>0},
+ {k:"save",tag:"fewest saved",q:"Where are the fewest people saved?",s:"Share of people saved",why:"Of the people the Coast Guard could still help, the share who were saved. A lower share can mean a zone is hard to reach in time or stretched thin, but rough water and remote areas also play a part.",val:r=>r.save.toFixed(0)+"% saved",bar:r=>100-r.save,asc:true,hit:r=>r.rk.save!=null&&r.rk.save<=10}];
+
+function colChart(vals,labels,hiIdx,color){
+  const W=320,H=170,pb=22,pt=18,max=Math.max(...vals,1),bw=(W/vals.length)*0.62,step=W/vals.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(labels.map((l,i)=>l+" "+fmt(vals[i])).join(", "))}">`;
+  s+=`<line x1="0" x2="${W}" y1="${H-pb}" y2="${H-pb}" stroke="var(--ink3)" stroke-width="1"/>`;
+  vals.forEach((v,i)=>{const h=(H-pb-pt)*v/max,x=i*step+(step-bw)/2,y=H-pb-h;
+    const f=hiIdx==null||hiIdx.includes(i)?color:"var(--blue2)";
+    s+=`<rect x="${x}" y="${y}" width="${bw}" height="${Math.max(h,0)}" fill="${f}" rx="2" data-tip="${esc(labels[i]+": "+fmt(v))}"/>`;
+    if(vals.length<=6)s+=`<text class="val" x="${x+bw/2}" y="${y-5}" text-anchor="middle">${fmt(v)}</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-6}" text-anchor="middle">${labels[i]}</text>`});
+  return s+"</svg>"}
+
+function render(){
+  const ys=yrs(),p=S.path,zs=scopeZones(p),A=agg(zs,ys),n=ys.length;
+  renderFilters();
+  const names=["Nationwide",...p];
+  document.getElementById("crumbs").innerHTML="Showing: "+names.map((nm,i)=>i===names.length-1?`<b>${esc(i===1?nm+" Area":nm)}</b>`:`<button data-lvl="${i}">${esc(i===1?nm+" Area":nm)}</button>`).join(" › ");
+  const label=names[names.length-1]+(p.length===1?" Area":"");
+  // KPIs
+  const o=A.o,sr=saveRate(o);
+  let delta="";
+  if(S.fy==="all"){const a=A.byYear[Y0],b=A.byYear[Y1];delta=a?`<span class="${b>a?"up":"down"}">${pct((b-a)/a*100)}</span> FY${yy(Y0)}→FY${yy(Y1)}`:""}
+  else if(+S.fy>Y0){const a=A.byYear[+S.fy-1],b=A.byYear[+S.fy];delta=a?`<span class="${b>a?"up":"down"}">${pct((b-a)/a*100)}</span> vs FY${String(+S.fy-1).slice(2)}`:""}
+  else delta="first year of data";
+  const K=[["SAR cases",fmt(A.cases),delta],["Average per year",fmt(A.cases/n),n>1?"across "+n+" years":"single year"],["Lives saved",fmt(o.saved||0),fmt((o.saved||0)/Math.max(A.cases,1)*100)+" per 100 cases"],
+    ["Lost after CG involved",fmt(lostAfter(o)),"after notification or arrival"],["Unaccounted for",fmt(o.unacc||0),"missing when search ended"],
+    ["Save rate",sr==null?"–":sr.toFixed(1)+"%","of lives CG could affect"],["Property saved",money(o.propSaved||0),money(o.propLost||0)+" lost"]];
+  document.getElementById("kpis").innerHTML=K.map(k=>`<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]}</div></div>`).join("");
+  // children
+  const lvl=p.length,kt=document.getElementById("kidsTitle"),kd=document.getElementById("kids");
+  if(lvl<3){
+    const key=["a","d","z"][lvl],groups={};
+    zs.forEach(z=>(groups[z[key]]=groups[z[key]]||[]).push(z));
+    const list=Object.entries(groups).map(([k,g])=>({k,v:agg(g,ys).cases,sub:lvl===2?"":g.length+(lvl===0?" zones":" zones")})).sort((a,b)=>b.v-a.v);
+    const max=Math.max(...list.map(l=>l.v),1),tot=list.reduce((s,l)=>s+l.v,0)||1;
+    kt.textContent=["Cases by area","Cases by district in "+p[0]+" Area","Cases by zone in "+p[1]][lvl];
+    kd.innerHTML=list.map(l=>`<button class="kid" data-go="${esc(l.k)}"><span class="n">${esc(lvl===0?l.k+" Area":l.k)}<small>${(l.v/tot*100).toFixed(0)}% · ${l.sub}</small></span><span class="num">${fmt(l.v)}</span><span class="track"><span style="width:${l.v/max*100}%"></span></span></button>`).join("").replace(/ · <\/small>/g,"</small>");
+  }else{
+    const r=zoneMetrics().find(x=>x.z===p[2]);
+    kt.textContent=p[2]+" at a glance";
+    const dz=Z.filter(z=>z.d===p[1]),dc=agg(dz,ys).cases;
+    kd.innerHTML=`<p class="why" style="margin-bottom:8px">Where ${esc(p[2])} ranks among the ${NZ} zones (#1 is highest):</p>`+QS.map(q=>{const rk=r.rk[q.k];
+      return `<div class="ob"><span>${q.s}</span><span class="n" style="text-align:left">${q.k==="save"&&(r.save==null||r.low)?"too few people to rank":esc(q.val(r))}</span><span class="n">${rk&&!(q.k==="save"&&r.low)&&!(q.k==="surge"&&r.tiny)?"#"+rk+(q.k==="save"?" lowest":""):"–"}</span></div>`}).join("")+
+      `<div class="ob"><span>Share of ${esc(p[1])} cases</span><span class="t"><span style="width:${A.cases/dc*100}%;background:var(--blue)"></span></span><span class="n">${(A.cases/dc*100).toFixed(0)}%</span></div>`}
+  // detail charts
+  document.getElementById("detTitle").textContent=label;
+  const yv=YRS.map(y=>A.byYear[y]);
+  document.getElementById("chYear").innerHTML=colChart(yv,YRS.map(y=>"FY"+String(y).slice(2)),S.fy==="all"?null:[YRS.indexOf(+S.fy)],"var(--blue)");
+  const peak=Math.max(...A.mon);
+  document.getElementById("chMon").innerHTML=colChart(A.mon,MON.map(m=>m[0]),[A.mon.indexOf(peak)],"var(--red)");
+  document.getElementById("chMonHint").textContent="Average cases per month"+(n>1?", "+FRS:", FY"+String(ys[0]).slice(2))+" (busiest in red)";
+  const omax=Math.max(...OUT.map(x=>o[x[0]]||0),1);
+  document.getElementById("outc").innerHTML=OUT.map(([k,l,c])=>`<div class="ob"><span>${l}</span><span class="t"><span style="width:${(o[k]||0)/omax*100}%;background:${c}"></span></span><span class="n">${fmt(o[k]||0)}</span></div>`).join("");
+  renderBoard();renderHeat(zs,ys);
+}
+
+function renderBoard(){
+  const all=zoneMetrics(),p=S.path,Q=QS.find(q=>q.k===S.q);
+  const inScope=r=>(!p[0]||r.a===p[0])&&(!p[1]||r.d===p[1]);
+  const where=p[1]?" in "+p[1]:p[0]?" in the "+p[0]+" Area":"";
+  document.getElementById("qs").innerHTML=QS.map(q=>`<button data-q="${q.k}" aria-pressed="${q.k===S.q}">${q.q}<small>${q.s}</small></button>`).join("");
+  document.getElementById("qTitle").textContent=Q.q.replace("?",where+"?");
+  document.getElementById("qWhy").textContent=Q.why;
+  let list=all.filter(inScope).filter(r=>Q.k!=="save"||(r.save!=null&&!r.low)).filter(r=>Q.k!=="surge"||!r.tiny);
+  list.sort((a,b)=>Q.asc?a[Q.k]-b[Q.k]:b[Q.k]-a[Q.k]);
+  const n=list.length,shown=S.all?list:list.slice(0,10),max=Math.max(...list.map(Q.bar),0.0001);
+  const col=Q.k==="save"?"var(--red)":Q.k==="trend"?"var(--red)":"var(--blue)";
+  document.getElementById("qBars").innerHTML=shown.map((r,i)=>`<button class="qb ${r.z===p[2]?"sel":""}" data-zone="${esc(r.z)}"><span class="rk">${i+1}</span><span class="top"><span>${esc(r.z)}</span><span>${esc(Q.val(r))}</span></span><span class="tr"><i style="width:${Math.max(Q.bar(r),0)/max*100}%;background:${col}"></i></span></button>`).join("");
+  const mb=document.getElementById("qMore");mb.style.display=n>10?"":"none";mb.textContent=S.all?"Show top 10 only":"Show all "+n+" zones";
+  const lowZ=all.filter(inScope).filter(r=>r.low).map(r=>r.z);
+  document.getElementById("qFoot").textContent=Q.k==="save"&&lowZ.length?"Not ranked (too few people for a reliable share, since DHS rounds to the nearest 10): "+lowZ.join(", ")+".":Q.k==="surge"&&all.filter(inScope).some(r=>r.tiny)?"Not ranked (fewer than 50 cases a year, too few to show a reliable pattern): "+all.filter(inScope).filter(r=>r.tiny).map(r=>r.z).join(", ")+".":Q.k==="trend"?"Change per year always uses every year in the data, whichever year is selected at the top.":"";
+  const rep=all.filter(r=>r.top>0&&inScope(r)).sort((a,b)=>b.top-a.top||a.rk.vol-b.rk.vol).slice(0,12);
+  document.getElementById("repeat").innerHTML=rep.length?rep.map(r=>`<button class="rp" data-zone="${esc(r.z)}"><span>${esc(r.z)}</span><span class="dots" aria-label="Top 10 in ${r.top} of 5">${r.hits.map(h=>`<i class="${h?"on":""}"></i>`).join("")}</span><small>Top 10 in ${r.top} of 5: ${QS.filter((q,i)=>r.hits[i]).map(q=>q.tag).join(", ")}</small></button>`).join(""):'<p class="why">No zone in this selection ranks in the national top 10 on any question.</p>';
+  const {k,dir}=S.sort,rows=all.filter(inScope);
+  rows.sort((a,b)=>{const x=a[k],y=b[k];if(typeof x==="string")return dir*x.localeCompare(y);return dir*((x??-1)-(y??-1))});
+  document.querySelectorAll("#board th").forEach(th=>th.setAttribute("aria-sort",th.dataset.k===k?(dir<0?"descending":"ascending"):"none"));
+  document.querySelector("#board tbody").innerHTML=rows.map(r=>`<tr tabindex="0" data-zone="${esc(r.z)}" class="${r.z===p[2]?"sel":""}"><td>${esc(r.z)}</td><td>${esc(r.d)}</td><td>${fmt(r.vol)}</td><td>${fmt(r.lives)}</td><td>${r.surge.toFixed(1)}× (${r.peak})</td><td class="${r.trend>0?"up":"down"}">${pct(r.trend)}</td><td class="${r.low?"flag":""}">${r.save==null?"–":r.save.toFixed(0)+"%"+(r.low?"*":"")}</td><td>${r.top} of 5</td></tr>`).join("");
+}
+
+function renderHeat(zs,ys){
+  const rows=zs.map(z=>({z,m:agg([z],ys).mon})).sort((a,b)=>b.m.reduce((s,v)=>s+v,0)-a.m.reduce((s,v)=>s+v,0));
+  const rel=S.heat==="rel";
+  const val=r=>rel?r.m.map(v=>{const t=r.m.reduce((s,x)=>s+x,0);return t?v/t*100:0}):r.m;
+  const max=Math.max(...rows.flatMap(val),1);
+  const h=document.getElementById("heat");
+  h.style.gridTemplateColumns="170px repeat(12,minmax(40px,1fr))";
+  let s=`<div></div>`+MON.map(m=>`<div class="h">${m}</div>`).join("");
+  rows.forEach(r=>{const v=val(r);
+    s+=`<div class="rl" tabindex="0" data-zone="${esc(r.z.z)}">${esc(r.z.z)}</div>`+v.map((x,i)=>{const t=x/max,dark=t>.55;
+      return `<div class="c" style="background:color-mix(in srgb,var(--blue) ${Math.round(8+t*92)}%,var(--blue3));color:${dark?"#fff":"var(--ink)"}" data-tip="${esc(r.z.z+", "+MON[i]+": "+(rel?x.toFixed(1)+"% of year":fmt(x)+" cases/month"))}">${rel?x.toFixed(0):fmt(x)}</div>`}).join("")});
+  h.innerHTML=s;
+  document.getElementById("lgHi").textContent=rel?max.toFixed(0)+"% of zone's year":fmt(max)+" cases/month";
+  document.getElementById("lgLo").textContent="0";
+  document.getElementById("heatMode").innerHTML=[["abs","Cases per month"],["rel","Share of zone's year"]].map(([k,l])=>`<button aria-pressed="${S.heat===k}" data-heat="${k}">${l}</button>`).join("");
+}
+
+
+const AREAS=["Atlantic","Pacific"];
+const dists=a=>[...new Set(Z.filter(z=>!a||z.a===a).map(z=>z.d))].sort((x,y)=>dnum(x)-dnum(y));
+const zcount=f=>Z.filter(f).length;
+function renderFilters(){
+  const [a,d,zn]=S.path;
+  const opt=(v,l,sel)=>`<option value="${esc(v)}"${sel?" selected":""}>${esc(l)}</option>`;
+  document.getElementById("fArea").innerHTML=opt("","Nationwide (all zones)",!a)+AREAS.map(x=>opt(x,x+" Area ("+zcount(z=>z.a===x)+" zones)",a===x)).join("");
+  const dOpts=A=>dists(A).map(x=>opt(x,x+" ("+zcount(z=>z.d===x)+" zones)",d===x)).join("");
+  document.getElementById("fDist").innerHTML=opt("",a?"All districts in "+a+" Area":"All districts",!d)+(a?dOpts(a):AREAS.map(x=>`<optgroup label="${x} Area">${dOpts(x)}</optgroup>`).join(""));
+  const zs=Z.filter(z=>(!a||z.a===a)&&(!d||z.d===d)).sort((x,y)=>x.z.localeCompare(y.z));
+  const zOpts=list=>list.map(z=>opt(z.z,z.z,zn===z.z)).join("");
+  document.getElementById("fZone").innerHTML=opt("",d?"All zones in "+d:a?"All zones in "+a+" Area":"All zones",!zn)+(d?zOpts(zs):dists(a).map(x=>`<optgroup label="${x}">${zOpts(zs.filter(z=>z.d===x))}</optgroup>`).join(""));
+  document.getElementById("fYear").innerHTML=opt("all","All years (FY"+Y0+"–"+Y1+")",S.fy==="all")+YRS.map(y=>opt(y,"FY"+y,S.fy==y)).join("");
+  document.getElementById("fReset").disabled=!S.path.length;
+}
+document.addEventListener("change",e=>{
+  const id=e.target.id,v=e.target.value;
+  if(id==="fArea")S.path=v?[v]:[];
+  else if(id==="fDist")S.path=v?[Z.find(z=>z.d===v).a,v]:S.path.slice(0,1);
+  else if(id==="fZone"){if(v){const z=Z.find(x=>x.z===v);S.path=[z.a,z.d,z.z]}else S.path=S.path.slice(0,2)}
+  else if(id==="fYear")S.fy=v==="all"?"all":+v;
+  else return;
+  S.all=false;render()});
+document.getElementById("fReset").addEventListener("click",()=>{S.path=[];S.all=false;render()});
+function goZone(name){const z=Z.find(x=>x.z===name);if(!z)return;S.path=[z.a,z.d,z.z];render();document.getElementById("detTitle").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"center"})}
+document.addEventListener("click",e=>{
+  const qb=e.target.closest("[data-q]");if(qb){S.q=qb.dataset.q;S.all=false;return renderBoard()}
+  if(e.target.closest("#qMore")){S.all=!S.all;return renderBoard()}
+  const t=e.target.closest("[data-fy],[data-lvl],[data-go],[data-zone],[data-heat],th[data-k]");if(!t)return;
+  if(t.dataset.fy)S.fy=t.dataset.fy==="all"?"all":+t.dataset.fy;
+  else if(t.dataset.lvl!=null)S.path=S.path.slice(0,+t.dataset.lvl);
+  else if(t.dataset.go)S.path=[...S.path,t.dataset.go];
+  else if(t.dataset.zone)return goZone(t.dataset.zone);
+  else if(t.dataset.heat){S.heat=t.dataset.heat;return renderHeat(scopeZones(S.path),yrs())}
+  else if(t.dataset.k){const k=t.dataset.k;S.sort={k,dir:S.sort.k===k?-S.sort.dir:(k==="z"||k==="d"?1:-1)};return renderBoard()}
+  render()});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.zone)goZone(e.target.dataset.zone)});
+
+const tip=document.getElementById("tip");
+document.addEventListener("mousemove",e=>{const t=e.target.closest("[data-tip]");if(!t){tip.style.opacity=0;return}
+  tip.textContent=t.dataset.tip;tip.style.opacity=1;const x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8);tip.style.left=x+"px";tip.style.top=(e.clientY+14)+"px"});
+// Fill page text from the embedded data so the template also works as-is
+(function(){const fr="FY"+Y0+"–"+Y1,tt="Coast Guard Search and Rescue Statistics, "+fr;
+  document.title=tt;document.getElementById("pageTitle").textContent=tt;
+  document.querySelectorAll(".nz").forEach(e=>e.textContent=NZ);
+  document.querySelectorAll(".fyr").forEach(e=>e.textContent=fr);
+  if(DATA.source)document.getElementById("srcFile").textContent="workbook: "+DATA.source})();
+render();
+</script>
+</body>
+</html>
